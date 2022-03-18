@@ -6,7 +6,8 @@ public class Ball {
     private int width = 30;
     private int height = 30;
 
-    private int speed = 3;
+    private int xSpeed = 1;
+    private int ySpeed = 1;
     
     public Ball() {
         this.CenterXPos();
@@ -20,21 +21,40 @@ public class Ball {
 
     public void update(Graphics2D g2) {
         this.draw(g2);
-        xPos += speed;
+        xPos += xSpeed;
+        yPos += ySpeed;
         if (isCollidingWithWall()) {
-            speed = -speed;
+            ySpeed = -ySpeed;
         }
     }
 
-    private boolean isCollidingWithWall() {
-        return getXPos() + width >= Constants.SCREEN_WIDTH || getXPos() <= 0;
+    public void reset() {
+        this.CenterXPos();
+        this.CenterYPos();
     }
 
-    public int getXPos() {
+    public int getTopEdge() {
+        return this.yPos;
+    }
+
+    public int getBottomEdge() {
+        return this.yPos + height;
+    }
+
+    public int getRightEdge() {
+        return this.xPos + width;
+    }
+
+    public int getLeftEdge() {
         return this.xPos;
     }
-    public int getYPos() {
-        return this.yPos;
+
+    private boolean isCollidingWithWall() {
+        return this.yPos <= 30 || this.yPos + height >= Constants.SCREEN_HEIGHT;
+    }
+
+    public void rebound() {
+        this.xSpeed = -this.xSpeed;
     }
 
     private void CenterXPos() {

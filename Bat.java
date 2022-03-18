@@ -32,6 +32,22 @@ public class Bat {
         return this.yPos <= 30 || this.yPos + height >= Constants.SCREEN_HEIGHT;
     }
 
+    public int getLeftEdge() {
+        return this.xPos;
+    }
+
+    public int getRightEdge() {
+        return this.xPos + width;
+    }
+
+    public int getTopEdge() {
+        return this.yPos;
+    }
+
+    public int getBottomEdge() {
+        return this.yPos + height;
+    }
+ 
     private void clamp() {
         this.yPos = Math.min(Constants.SCREEN_HEIGHT - height, this.yPos);
         this.yPos = Math.max(30, this.yPos);
